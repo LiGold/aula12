@@ -90,3 +90,33 @@ function registrarNomeEmpresa() {
         }
     });
 }
+function obtemDefinirAgente() {
+    contratoUsoDeImagem.DefinirAgente({from: contaUsuario, gas: 3000000, value: 0}, function (err, resultado) {
+        if (err)    {
+            console.log("Erro");
+            console.error(err);
+        } else {
+            console.log("Resultado");
+            let objStatus = document.getElementById("spanDefinirAgente");
+            console.log(resultado);
+            objStatus.innerText = resultado;
+        }
+    });
+}
+
+function registrarDefinirAgente() {
+	var statusTransacao = document.getElementById("statusTransacaoDefinirAgente");
+	var DefinirAgente = document.formDefinirAgente.campoDefinirAgente.value;
+	statusTransacao.innerHTML = "Enviando transação. Por favor monitore seu Metamask.";
+	contratoUsoDeImagem.definirDefinirAgente(DefinirAgente, {from: contaUsuario, gas: 3000000, value: 0}, function (err, resultado) {
+        if (err)    {
+            console.log("Erro");
+			console.error(err);
+			statusTransacao.innerHTML = "Erro: " + err;
+        } else {
+            console.log("Resultado");
+            console.log(resultado);
+            statusTransacao.innerHTML = "Transação enviada ao Blockchain Ethereum. Faça a monitoração pelo hash: " + resultado;
+        }
+    });
+}
